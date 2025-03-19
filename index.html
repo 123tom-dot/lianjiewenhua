@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新时代廉洁文化</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "华文中宋", "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background: url('余杭.jpg') center/cover fixed;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.5);
+            z-index: 0;
+        }
+
+        .main-page,
+        .sub-page,
+        .quadrant,
+        .center-word {
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-page {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .center-word {
+            font-size: 20vw;
+            color: #c62828;
+            text-shadow: 3px 3px 10px rgba(198,40,40,0.3);
+            position: absolute;
+            mix-blend-mode: multiply;
+        }
+
+        .quadrant {
+            position: absolute;
+            width: 25vw;
+            height: 25vh;
+            background: rgba(255,255,255,0.95);
+            border: 3px solid #c62828;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5vw;
+            color: #2d572c;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quadrant:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(198,40,40,0.3);
+        }
+
+        .sub-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.98);
+            padding: 40px 20px;
+            display: none;
+            overflow-y: auto;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M862.485 481.154H234.126l203.3-203.3a42.667 42.667 0 1 0-60.33-60.331L104.91 501.834a42.667 42.667 0 0 0 0 60.331l272.186 272.186a42.667 42.667 0 0 0 60.33-60.33l-203.3-203.3h628.36a42.667 42.667 0 1 0 0-85.334z" fill="%23c62828"/></svg>');
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        .detail-content {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .center-word { font-size: 30vw; }
+            .quadrant {
+                width: 35vw;
+                height: 20vh;
+                font-size: 4vw;
+            }
+            .sub-page { padding: 20px 10px; }
+        }
+
+        .content-list {
+            max-width: 800px;
+            margin: 30px auto;
+        }
+
+        .content-item {
+            padding: 15px;
+            margin: 15px 0;
+            background: #fff3e0;
+            border-left: 4px solid #c62828;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .content-item:hover {
+            transform: translateX(10px);
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+        }
+
+        #education-content {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #fff9c4;
+            border-radius: 10px;
+            line-height: 1.8;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 主页面 -->
+    <div class="main-page active">
+        <div class="center-word">廉</div>
+        <div class="quadrant" style="top:10%;left:10%;" onclick="showPage('culture')">新时代廉洁文化</div>
+        <div class="quadrant" style="top:10%;right:10%;" onclick="showPage('stories')">廉政故事</div>
+        <div class="quadrant" style="bottom:10%;left:10%;" onclick="showPage('cases')">警示案例</div>
+        <div class="quadrant" style="bottom:10%;right:10%;" onclick="showPage('education')">教育启示</div>
+    </div>
+
+    <!-- 二级页面 -->
+    <div class="sub-page" id="culture-page">
+        <div class="back-btn" onclick="hidePage('culture')"></div>
+        <h2 style="text-align:center;color:#c62828;margin:20px;">新时代廉洁文化</h2>
+        <div class="content-list">
+            <div class="content-item" onclick="showDetail('traditional')">中国优秀传统文化</div>
+            <div class="content-item" onclick="showDetail('revolution')">革命文化</div>
+            <div class="content-item" onclick="showDetail('socialist')">社会主义先进文化</div>
+        </div>
+    </div>
+
+    <div class="sub-page" id="stories-page">
+        <div class="back-btn" onclick="hidePage('stories')"></div>
+        <h2 style="text-align:center;color:#c62828;margin:20px;">廉政故事</h2>
+        <div class="content-list">
+            <div class="content-item" onclick="showDetail('stories1')">杨震-四知拒金</div>
+            <div class="content-item" onclick="showDetail('stories2')">于成龙-糖粥待客</div>
+            <div class="content-item" onclick="showDetail('stories3')">吴隐之-痛饮贪泉</div>
+        </div>
+    </div>
+
+    <div class="sub-page" id="cases-page">
+        <div class="back-btn" onclick="hidePage('cases')"></div>
+        <h2 style="text-align:center;color:#c62828;margin:20px;">警示案例</h2>
+        <div class="content-list">
+            <div class="content-item" onclick="showDetail('cases1')">和坤-清朝巨蠹</div>
+            <div class="content-item" onclick="showDetail('cases2')">刘青山、张子善-新中国反腐第一枪</div>
+            <div class="content-item" onclick="showDetail('cases3')">赖小民-3个100金融巨贪现形记</div>
+        </div>
+    </div>
+
+    <div class="sub-page" id="education-page">
+        <div class="back-btn" onclick="hidePage('education')"></div>
+        <h2 style="text-align:center;color:#c62828;margin:20px;">教育启示</h2>
+        <div id="education-content"></div>
+    </div>
+
+    <!-- 三级详情页面 -->
+    <div class="sub-page" id="detail-page">
+        <div class="back-btn" onclick="hideDetail()"></div>
+        <div class="detail-content" id="detail-content"></div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelector('.main-page').classList.remove('active');
+            document.getElementById(pageId+'-page').style.display = 'block';
+            if(pageId === 'education') initEducationContent();
+        }
+
+        function hidePage(pageId) {
+            document.querySelector('.main-page').classList.add('active');
+            document.getElementById(pageId+'-page').style.display = 'none';
+        }
+
+        function initEducationContent() {
+            document.getElementById('education-content').innerHTML = `
+                <p style="text-indent:2em;">廉洁从政是中国共产党人融入血脉的政治基因，是新时代新征程上党员干部必须守牢的政治生命线。广大党员干部要始终以党的二十大精神为指引，深刻把握"两个永远在路上"的历史主动，在新时代赶考路上锤炼忠诚干净担当的政治品格：</p>
+                <ul style="margin:15px 0;">
+                    <li>一要铸牢信仰之基，坚守初心使命。把对党绝对忠诚作为首要政治原则，将"人民至上"理念深植灵魂，以"功成不必在我"的境界守好精神家园，以"时时放心不下"的担当践行为民宗旨，永葆"拒腐蚀永不沾"的政治本色。</li>
+                    <li>二要常修律己之功，涵养清风正气。坚持"吾日三省吾身"，勤掸思想尘、多思贪欲害、常破心中贼，在"温水煮青蛙"的围猎中保持清醒，在"糖衣炮弹"的诱惑前站稳脚跟。牢记"莫伸手，伸手必被捉"的警训，算好政治账、经济账、名誉账、家庭账、自由账、健康账、人情账"七本人生大账"。</li>
+                    <li>三要扎紧制度之笼，严守纪律底线。把党章党规党纪作为丈量言行的标尺，将中央八项规定精神作为不可逾越的铁规矩硬杠杠。自觉接受组织监督、群众监督、舆论监督，让权力在阳光下运行，确保党和人民赋予的权力始终用于为党分忧、为民造福。</li>
+                    <li>四要传承红色家风，筑牢拒腐堤坝。以"清风两袖朝天去"的廉吏风范立身齐家，以"不拿群众一针一线"的革命传统治家教子，培育崇廉尚俭、克己奉公的家风文化，让清廉之花开遍家庭每个角落。</li>
+                </ul>
+                <p style="text-indent:2em;">让我们以永远在路上的坚韧执着，把严的基调、严的措施、严的氛围长期坚持下去，用"一身正气豪情壮"的昂扬姿态，书写无愧于党、无愧于人民、无愧于时代的清廉答卷！</p>
+                <p style="color:#c62828;text-align:center;margin-top:20px;">
+                    清风两袖朝天去，不带江南一寸棉<br>
+                    粉骨碎身浑不怕，要留清白在人间
+                </p>
+            `;
+        }
+
+        const contentData = {
+            traditional: {
+                title: "中华优秀传统文化",
+                content: `
+                    <h3>民本思想</h3>
+                    <p>从《尚书》"民惟邦本，本固邦宁"到孟子"民为贵，社稷次之，君为轻"，形成了"以百姓心为心"的执政传统。北宋范仲淹"先天下之忧而忧，后天下之乐而乐"的担当精神，至今仍是党员干部的镜鉴。</p>
+                    <h3>​德法共治</h3>
+                    <p>孔子"道之以德，齐之以礼"与韩非子"法不阿贵"相融合，形成"礼法合治"的治理智慧。《唐律疏议》将"六赃"入刑，明代《大明律》专设"受赃"篇，彰显古代反腐制度创新。</p>
+                    <h3>廉政文化</h3>
+                    <p>西周"六廉"考核体系（廉善、廉能、廉敬、廉正、廉法、廉辨），汉代"举孝廉"选官制度，宋代《戒石铭》"尔俸尔禄，民膏民脂"，构建起古代廉政制度文明。</p>
+                    <h3>​君子人格</h3>
+                    <p>《周易》"天行健，君子以自强不息"的进取精神，《论语》"见贤思齐，见不贤而内自省"的修身之道，塑造了知识分子的精神风骨。王阳明"破山中贼易，破心中贼难"的警示，至今振聋发聩。</p>
+                    <h3>家训文化</h3>
+                    <p>颜之推《颜氏家训》强调"俭以养德"，朱熹《朱子家训》主张"勿以善小而不为"，曾国藩"居家以不晏起为本"的治家理念，形成"忠厚传家久"的文化传承。</p>
+                `
+            },
+            revolution: {
+                title: "革命文化中的廉洁精神",
+                content: `
+                    <h3>苏维埃时期的反腐实践</h3>
+                    <p>1932年中央苏区开展反贪污浪费运动，颁布《关于惩治贪污浪费行为》训令，规定贪污500元以上处死刑。叶坪村苏维埃政府主席谢步升因贪污3000斤粮食被公审处决，成为党史上首个被处决的贪腐分子，彰显"腐败分子在共产党内无藏身之地"的决心。</p>
+                    <h3>周恩来的"十条家规"</h3>
+                    <p>从"晚辈不准丢下工作专程来看望"到"不许请客送礼"，周恩来为亲属立下的规矩成为领导干部家风典范。1973年他重返延安，看到群众仍吃不饱饭时潸然泪下，立即要求降低自己伙食标准，这种"人民的总服务员"意识至今感人至深。</p>
+                    <h3>方志敏的"清贫观"</h3>
+                    <p>1935年方志敏被捕时，国民党士兵搜遍全身仅找到一支钢笔、一块怀表，他在《清贫》中写道："清贫，洁白朴素的生活，正是我们革命者能够战胜许多困难的地方！"这种"经手的款项总在数百万元，但为革命筹集的金钱一点一滴用之于革命事业"的操守，成为共产党人廉洁自律的精神丰碑。</p>
+                    <h3>延安整风的精神洗礼</h3>
+                    <p>1942年整风运动中，毛泽东在《改造我们的学习》中痛批"华而不实、脆而不坚"的作风。党员干部通过"脱裤子，割尾巴"的自我革命，建立批评与自我批评制度。朱德总司令穿着补丁棉袄作报告，周恩来用马尾自制牙刷，这种"节省每一个铜板为着战争和革命事业"的作风，塑造了延安精神的廉洁内核。</p>
+                    <h3>毛泽东的补丁睡衣</h3>
+                    <p>毛泽东那件有73个补丁的睡衣穿了20年，炊事员想倒掉剩饭被他制止："井冈山时期，一碗馊饭救过战士的命"。1949年进京前强调"决不当李自成"，要求全党警惕"糖衣炮弹"，这种居安思危意识深刻影响着党的作风建设。</p>
+                    <h3>黄炎培"窑洞对"的制度启示</h3>
+                    <p>1945年毛泽东在延安窑洞回答黄炎培历史周期律之问，提出"只有让人民来监督政府，政府才不敢松懈"。边区政府建立参议会、工农监察队等民主监督形式，1943年《解放日报》开辟"读者来信"专栏，让群众直接检举官僚主义。</p>
+                    <h3>革命文化中的廉洁精神，正如习近平总书记所强调："光荣传统不能丢，丢了就丢了魂；红色基因不能变，变了就变了质。"这种精神既体现在"半条被子"的为民情怀中，也闪耀在脱贫攻坚"一个都不能少"的庄严承诺里，更熔铸于新时代全面从严治党"永远在路上"的铿锵步伐中，成为中国共产党跳出历史周期率的强大精神密码。</h3>
+                `
+            },
+            socialist: {
+                title: "社会主义先进文化",
+                content: `
+                    <h3>一、理论体系：与时俱进的廉洁思想发展</h3>
+                    <h3>毛泽东"两个务必"思想</h3>
+                    <p>1949年七届二中全会提出"务必使同志们继续地保持谦虚、谨慎、不骄、不躁的作风，务必使同志们继续地保持艰苦奋斗的作风"，为执政党建设奠定思想根基。</p>
+                    <h3>邓小平制度反腐思想</h3>
+                    <p>1980年提出"制度问题更带有根本性、全局性、稳定性和长期性"，推动《关于党内政治生活的若干准则》制定，开启改革开放时期制度建设新阶段。</p>
+                    <h3>习近平新时代廉洁观</h3>
+                    <p>提出"打铁必须自身硬"的政治要求，强调"不敢腐、不能腐、不想腐"一体推进，将廉洁文化建设纳入国家治理体系，形成全面从严治党战略部署。</p>
+                    <h3>二、制度创新：系统集成的监督体系</h3>
+                    <h3>纪检监察体制改革</h3>
+                    <p>2018年成立国家监委，与纪委合署办公，实现对所有行使公权力的公职人员监察全覆盖。2022年《监察法实施条例》细化监察权限，形成"纪法贯通、法法衔接"机制。</p>
+                    <h3>巡视巡察制度</h3>
+                    <p>建立中央、省、市、县四级巡视巡察体系，十八大以来中央巡视组开展12轮巡视，覆盖277个党组织，发现问题线索5.6万件。</p>
+                    <h3>廉政风险防控机制</h3>
+                    <p>海关系统"制度+科技"防腐模式，金融领域"穿透式监管"，工程建设领域"行贿人黑名单"，形成精准防控体系。</p>
+                `
+            },
+            stories1: {
+                title: "杨震",
+                content: `
+                    <h3>四知拒金</h3>
+                    <p>东汉永初四年（公元110年），名儒杨震调任东莱太守，途径昌邑县（今山东巨野）暂住驿馆。当夜，曾受他举荐为官的昌邑县令王密悄然来访，携十斤黄金（约合汉代200公斤粮食价值）置于案前，恳切道：“恩公昔年举荐之恩，学生无以为报。今特备薄礼，夜色已深，绝无人知，恳请笑纳。”</p>
+                    <p>原来，杨震任荆州刺史时，发现王密才华出众，力排众议推举其为茂才（汉代高级人才选拔制度）。按当时官场惯例，被举荐者需以财物报答“举主”，但杨震始终恪守清廉准则。面对王密深夜行贿，他勃然变色，指着黄金厉声质问：“你我相识多年，怎会不知我为人？你称‘暮夜无人知晓’，却不知——”随即伸出四指，一字一顿道：“天知、地知、你知、我知！此乃‘四知’，怎说无人知晓？”（《后汉书·杨震传》载：“天知，神知，我知，子知。何谓无知！”后世演化为“四知”）</p>
+                    <p>王密闻言羞愧难当，慌忙携金退去。此事传开后震动朝野，杨震得“四知太守”美誉，其“暮夜却金”的操守成为廉政典范。后来他官至太尉（三公之一），始终粗茶淡饭、徒步办公，临终前仍叮嘱子孙：“葬我以杂木为棺，布单裁衣，勿起祠堂，勿设祭礼。”</p>
+                    <p>杨震后人将“四知”刻为祖训，各地杨氏宗祠皆以“四知堂”命名，陕西潼关至今存有明代“四知坊”古迹。故事中“深夜独处仍守节”的“慎独”精神，与“不畏人知畏己知”的廉洁自觉，跨越两千年仍被奉为官德圭臬，2016年更被中央纪委网站列为“中国传统中的家规”典范。</p>
+                `
+            },
+            stories2: {
+                title: "于成龙",
+                content: `
+                    <h3>糖粥待客</h3>
+                    <p>清康熙二十年（1681年），被誉为"天下第一廉吏"的于成龙升任两江总督，执掌江苏、安徽、江西三省军政。这位常年以"半鸭知府"（每日半只咸鸭佐餐）闻名的清官，到任后立即整顿吏治，却遭遇江南官场奢靡之风的暗中抵制。</p>
+                    <p>某日，扬州盐商首领曹百万借贺寿之名，携镶金食盒登门拜访。揭开盒盖，内盛龙眼大珍珠十颗、赤金寿桃一对，谄笑道："听闻制台大人寿辰将至，特备薄礼为江南百姓表心意。"于成龙瞥见礼单，拍案怒斥："尔等年年以'炭敬''冰敬'之名行贿，本督今日便破了这陋规！"当即命人将礼物掷出衙门。</p>
+                    <p>次日恰逢于成龙六十寿辰，三省官员齐聚总督府"贺寿"。众人料想封疆大吏寿宴必是珍馐满席，却见厅堂仅摆粗木方桌，桌上置一陶瓮，热气蒸腾间飘出甜香。待宾客落座，于成龙亲执木勺，为每人盛满粗瓷大碗，朗声道："此乃江南百姓家常的赤豆糖粥，今日以粥代酒，与诸公共品民食。"</p>
+                    <p>众官面面相觑间，于成龙掏出一叠账册："去年三省'生辰纲'耗银八万两，今日本督这瓮粥费钱三百文。从今往后，官场寿宴皆以此粥为限！"说罢率先啜饮，红豆软糯、米香清甜中带着丝丝苦味——原来他特意保留赤豆皮，警示官员"先苦百姓之苦，方得甘甜"。</p>
+                    <p>这场"糖粥宴"震动江南，百姓传唱民谣："于公寿宴三件宝，木桌陶瓮粗瓷碗；红豆白粥苦中甜，要留清白在江南。"康熙帝闻奏后，特赐"清风是式"匾额。于成龙去世时，木箱中仅有一套官服、三斗糙米，却留下"为民上者，务须躬先俭朴"的廉政遗产，其"糖粥待客"的故事至今仍在廉政教育中传颂。</p>
+                `
+            },
+            stories3: {
+                title: "吴隐之",
+                content: `
+                    <h3>痛饮贪泉</h3>
+                    <p>东晋元兴元年（402年），朝廷任命吴隐之为龙骧将军、广州刺史，赴任途中行至石门（今广东佛山），遇一泓清泉名为“贪泉”。当地盛传此泉含邪气，饮者必生贪念，民谚云：“一饮贪泉水，千金不易心。”过往官吏为自证清廉，皆绕道避之，甚至以泉水洗目明志。</p>
+                    <p>吴隐之闻此传言，携随从径至泉边。但见古木参天，泉水晶澈如镜，他掬水细观后，忽仰天长笑：“若清廉在心，岂惧外物所染？”言罢俯身痛饮三大口，又命人取水煮茶，当场赋诗明志：“古人云此水，一歃怀千金。试使夷齐饮，终当不易心！”（意为：若让伯夷、叔齐这般高洁之士饮此水，也绝不会改变操守）</p>
+                    <p>赴任广州后，吴隐之刻意居于贪泉之畔。每日以泉水烹煮糙米野菜，妻子刘氏亲自织布裁衣，府中仆役仅留三人。某日属官送来剔除骨刺的鲜鱼，他正色道：“尔去其骨，是欲令我忘民之疾苦乎？”将鱼原样退回。面对珍宝遍地的南粤之地，他严惩行贿商人，将海外商船所赠沉香、象牙悉数充公，重修城墙以御海盗。</p>
+                    <p>三年任满离穗时，百姓发现刺史船舱中除书籍被褥外，仅存妻子购自市集的岭南沉香一斤——此物本为治家蚊虫所用。船至贪泉突遇风浪，吴隐之疑为沉香招祸，立取投入江中，风浪遂息。此事传为“沉香证廉”佳话，广州贪渎之风自此渐息。</p>
+                    <p>唐代王勃在《滕王阁序》中写下“酌贪泉而觉爽”赞其风骨，宋代方信孺立“贪泉碑”传世。2017年，广州市纪委监委在石门旧址重建“贪泉”廉政教育基地，吴隐之饮泉铜像目光如炬，警示后人：清浊之辨不在外物，而在方寸之间。</p>
+                `
+            },
+            cases1: {
+                title:"和坤",
+                content: `
+                    <h3>清朝巨蠹</h3>
+                    <p>乾隆四十五年（1780年），三十岁的和珅获赐紫禁城骑马殊荣，开启了他二十年权倾朝野的贪腐生涯。这位出身满洲正红旗的钮祜禄氏子弟，凭借精熟满汉蒙藏语言的天赋，以及曲意逢迎的本领，逐渐成为乾隆帝最宠信的权臣。</p>
+                    <h4>贪污纳贿</h4>
+                    <p>身兼军机大臣、户部尚书、内务府总管等20余要职的和珅，将权力转化为敛财工具：</p>
+                    <ul style="margin:15px 0;">
+                        <li>创设"议罪银"制度，官员犯罪可交钱抵罪，仅此一项年入白银800万两；</li>
+                        <li>把控科举选拔，明码标价售卖官职，道员（四品）标价白银20万两；</li>
+                        <li>垄断皇家工程，修建乾隆陵寝时虚报费用，私吞白银2000万两。</li>
+                    </ul>
+                    <h4>巧取豪夺</h4>
+                    <p>和珅发明"双倍抵押"法强占民产：商人向其借钱需抵押两倍资产，到期无法偿还即吞并财产。北京前门大街300余间商铺、直隶95万亩良田皆由此落入其手。更指使家奴开设当铺、银号75家，形成庞大商业帝国。</p>
+                    <h4>奢靡无度</h4>
+                    <p>嘉庆四年（1799年）正月初八，乾隆驾崩五日后，嘉庆帝抄没和珅家产：现银：赤金580万两、银元宝940万两，不动产：房屋3000间、土地8000顷，珍宝：东珠846颗、御用纬帽35顶、整张白虎皮12张，古玩：玉器库2间（1.3万件）、绸缎库4间（5.6万匹），总估值约11亿两白银，相当于清朝15年财政收入，时谚"和珅跌倒，嘉庆吃饱"。</p>
+                    <h4>历史镜鉴</h4>
+                    <p>这位穿着打补丁朝服作秀的"清廉"大臣，最终被赐白绫自尽。其宅邸（今北京恭王府）暗藏藏宝夹墙、地窖金库等精巧设计，成为古代贪官敛财的"技术典范"。2001年纪委拍摄《一代廉吏于成龙》时，特意在和珅府邸取景，以"清浊同框"警示后人：权力失去监督，终将酿成巨祸。</p>
+                `
+            },
+            cases2: {
+                title:"刘青山、张子善",
+                content: `
+                    <h3>新中国反腐第一枪</h3>
+                    <p>1950年，曾参加革命的天津地委书记刘青山、专区专员张子善，利用职权疯狂敛财，成为建国后首个震动中央的贪腐大案。二人任期内（1949-1951）通过四大手段侵吞国家资产：</p>
+                    <ul style="margin:15px 0;">
+                        <li>​克扣救命粮：挪用河工粮款、倒卖治水木材，致使4万民工日均仅4两粗粮，11人饿死工地；</li>
+                        <li>​吸血式借贷：骗取银行贷款171亿元（旧币，约今1.7亿元），月息高达60%，致87家工商户破产</li>
+                        <li>走私牟暴利：倒卖军用钢材、马口铁等战略物资，非法获利46亿元</li>
+                        <li>系统性造假：伪造工程预算虚报开支，私设"地下金库"藏匿黄金180两。</li>
+                    </ul>
+                    <p>1951年11月，河北省委三次秘密调查后上报中央。毛泽东听取案情汇报时拍案怒斥："对于这样的叛徒和蛀虫，有多少就必须清除多少！"面对部分干部"革命有功，可否从轻"的求情，毛泽东直言："正因为他们地位高、功劳大，才要严惩不贷！"</p>
+                    <p>1952年2月10日，河北省公审大会在保定体育场举行，2万群众冒雪参会。刘青山身披藏青色呢子大衣，张子善穿着笔挺中山装，与台下衣衫褴褛的受灾农民形成刺眼对比。最高人民法院核准死刑判决后，二人被押赴刑场执行枪决，成为中国共产党执政后处决的首个副省级贪腐官员。</p>
+                    <p>此案打响新中国反腐第一枪：</p>
+                    <ul style="margin:15px 0;">
+                        <li>追缴赃款3.78亿元，相当于当时天津地委全年财政预算的3倍；</li>
+                        <li>推动全国掀起"三反"运动，两个月内揭发贪污分子122万人；</li>
+                        <li>催生《惩治贪污条例》，确立"死刑起步价"1亿元（旧币）的反腐标准。</li>
+                    </ul>
+                    <p>刑场照片登上《人民日报》，配文"正义的子弹穿透糖衣炮弹"。刘青山遗言"拿我作典型吧"，张子善临终疾呼"消灭官僚主义"，至今仍警示着"手莫伸，伸手必被捉"的铁律。</p>
+                    <p style="color:#c62828;">警示：手莫伸，伸手必被捉！</p>
+                `
+            },
+            cases3: {
+                title:"赖小民",
+                content: `
+                    <h3>3个100金融巨贪</h3>
+                    <p>2018年4月，中国华融原董事长赖小民落马，掀开新中国成立以来金额最大的金融腐败案。这位曾执掌万亿国资的"财神爷"，创造受贿17.88亿余元的贪腐纪录，其犯罪模式被概括为"3个100"：</p>
+                    <h4>100多套房产织就藏金网</h4>
+                    <p>在北京、珠海、香港等地购置房产136套，其中北京某小区整层21套房专藏现金，办案人员清点2.7吨现钞烧坏3台点钞机。深圳1套500㎡豪宅藏匿2.7亿元现金，用暗门密室、防潮箱保存，部分钞票已发霉结块。</p>
+                    <h4>100多名商人构建利益圈</h4>
+                    <p>通过违规授信、内幕交易等手段，为特定商人批贷超3000亿元，收受"提成"达10.23亿元。在港设立空壳公司洗钱，利用华融旗下31家子公司输送利益，仅宁夏天元锰业就获取贷款685亿元。</p>
+                    <h4>100多位情妇组成后宫群</h4>
+                    <p>包养情妇百余人在京、津、渝等地，多名情妇被安插进华融及关联企业担任要职。为特定情妇在港购置价值1.3亿元豪宅，动用公司资金为其影视公司注资5亿元。</p>
+                    <p>2021年1月29日，经最高人民法院核准，赖小民在天津被执行死刑。此案推动金融系统开展"驻企督察"制度，2023年华融已累计追赃挽损328亿元。其"超市式受贿"（行贿人在办公室排队送礼）、"超市式藏钱"（现金按品牌、面额分类存放）等犯罪细节，成为金融反腐的典型教材，警示"金融安全关乎国家安全"的深刻命题。</p>
+                `
+            },
+            
+        };
+
+        function showDetail(type, key) {
+            const data = key ? contentData[type][key] : contentData[type];
+            document.getElementById('detail-content').innerHTML = `
+                <h2 style="color:#c62828;text-align:center;">${data.title || key}</h2>
+                <div style="margin-top:20px;line-height:1.8;">${data.content}</div>
+            `;
+            document.getElementById('detail-page').style.display = 'block';
+        }
+
+        function hideDetail() {
+            document.getElementById('detail-page').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
